@@ -10,32 +10,21 @@
 #include "osqueue.h"
 
 
-typedef enum {
-    immediate_shutdown = 1,
-    graceful_shutdown  = 2
-} threadpool_shutdown_t;
 
 typedef struct {
     void (*function)(void *);
     void *argument;
 } Task;
 
-typedef enum {
-    threadpool_graceful       = 1
-} threadpool_destroy_flags_t;
 
 typedef struct thread_pool {
     pthread_cond_t notify;
     OSQueue* tasks;
     pthread_t *threads;
     pthread_mutex_t  lock;
-    pthread_cond_t  threads_all_idle;
     int exitFlag;
-    int size;
-    int thread_count;
+    int threadCount;
     int started;
-    int head;
-    int tail;
     int count;
 }ThreadPool;
 
