@@ -42,6 +42,7 @@ static void *thread_run(void *threadPool) {
 
         // Get to work
         (*(task->function))(task->argument);
+        free(task);
     }
 
     pool->started--;
